@@ -39,13 +39,12 @@ WHERE s.name = 'Balalayka';
 
 --6 Названия альбомов, в которых присутствуют исполнители более чем одного жанра
 
-SELECT a.album_name FROM album a
+SELECT DISTINCT a.album_name 
+FROM album a
 JOIN albums_singers als ON als.album_id=a.album_id
-JOIN singer s ON s.singer_id=als.singer_id
-JOIN genres_singers gs ON gs.singer_id=s.singer_id
-JOIN genre ON genre.genre_id=gs.genre_id
-GROUP BY a.album_name
-HAVING COUNT(genre)>1;
+JOIN genres_singers gs ON gs.singer_id=als.singer_id
+GROUP BY a.album_id, gs.singer_id 
+HAVING COUNT(gs.genre_id)>1;
 
 --7 Наименования треков, которые не входят в сборники
 

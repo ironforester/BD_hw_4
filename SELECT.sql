@@ -61,11 +61,14 @@ WHERE duration = (SELECT MIN(duration) FROM track);
 
 --9 Названия альбомов, содержащих наименьшее количество треков.
 
-SELECT album_name FROM (SELECT album_name, COUNT(album_name) coun FROM album a 
+SELECT album_name 
+FROM album a 
 JOIN track t ON t.album_id = a.album_id
-GROUP BY album_name) sub1
-WHERE coun = (SELECT MIN(coun) 
-FROM 
-(SELECT album_name, COUNT(album_name) coun FROM album a 
-JOIN track t ON t.album_id = a.album_id
-GROUP BY album_name) sub2 );
+GROUP BY a.album_id
+HAVING COUNT(track_name) = (
+	SELECT COUNT(track_id) 
+	FROM track
+	GROUP BY album_id
+	ORDER BY 1
+	LIMIT 1
+	);

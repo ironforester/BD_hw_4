@@ -49,9 +49,8 @@ HAVING COUNT(gs.genre_id)>1;
 --7 Наименования треков, которые не входят в сборники
 
 SELECT t.track_name FROM track t
-JOIN track_collection tc ON tc.track_id=t.track_id
-JOIN collection c ON c.collection_id=tc.collection_id
-WHERE t.track_id NOT IN (tc.track_id);
+LEFT JOIN track_collection tc ON tc.track_id=t.track_id
+WHERE tc.track_id IS NULL;
 
 --8 Исполнитель или исполнители, написавшие самый короткий по продолжительности трек, — теоретически таких треков может быть несколько
 SELECT s.name FROM singer s

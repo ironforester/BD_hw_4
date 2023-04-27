@@ -9,10 +9,9 @@ ORDER BY singer_amount DESC;
 
 --2Количество треков, вошедших в альбомы 2019–2020 годов.
 
-SELECT year_of_release, COUNT(track_name) FROM album, track
-WHERE track.album_id=album.album_id AND year_of_release>=2019 AND year_of_release<=2020
-GROUP BY year_of_release
-ORDER BY COUNT(track_name);
+SELECT COUNT(track_id) FROM track t
+JOIN album a ON t.album_id = a.album_id
+WHERE year_of_release BETWEEN 2019 AND 2020;
 
 --3 Средняя продолжительность треков по каждому альбому.
 
@@ -23,9 +22,10 @@ GROUP BY album_name;
 --4 Все исполнители, которые не выпустили альбомы в 2020 году
 
 SELECT s.name FROM Singer s
-JOIN albums_singers als ON als.singer_id=s.singer_id 
-JOIN album a ON a.album_id=als.album_id
-WHERE year_of_release !=2020;
+WHERE singer_id NOT IN(SELECT singer_id 
+FROM albums_singers als
+JOIN album a  ON a.album_id = als.album_id
+WHERE year_of_release=2020);
 
 --5 Названия сборников, в которых присутствует конкретный исполнитель (выберите его сами)
 

@@ -5,15 +5,15 @@ VALUES('Metall'),
 	('Dance'),
 	('Rave');
 
-INSERT INTO Singer(name, genre_id) 
-VALUES('Beerhoven', 2),
-('Crazy Tank', 1),
-('No future', 1),
-('Powder nose', 5),
-('Shy girls', 4),
-('Singing guitars', 3),
-('7b', 3),
-('Balalayka', 2);
+INSERT INTO Singer(name) 
+VALUES('Beerhoven'),
+('Crazy Tank'),
+('No future'),
+('Powder nose'),
+('Shy girls'),
+('Singing guitars'),
+('7b'),
+('Balalayka');
 
 															
 INSERT INTO genres_singers(singer_id, genre_id) VALUES (1,2),
